@@ -25,7 +25,7 @@ function drawCard() {
         drawTest.textContent += "Empty"
     } else {
    var randomCard = Math.floor(Math.random() * deck.length)
-   drawTest.textContent += deck[randomCard] + " "
+   //drawTest.textContent += deck[randomCard] + " "
    deck.splice(randomCard, 1)
         //actual card
         let cardImg = document.createElement("img")
@@ -37,15 +37,17 @@ function drawCard() {
     }
 }
 
+const startButton = document.getElementById("strtbtn")
+
 
 //initial deal [working]
 function dealer() {
     if (deck.length <= 0) {
-        drawTest.textContent += "Empty"
+        drawTest.textContent += ""
     } else {
     for (let c = 1; c < 14; c++) {
     var randomCard = Math.floor(Math.random() * deck.length)
-    drawTest.textContent += deck[randomCard] + " "
+    //drawTest.textContent += deck[randomCard] + " "
     let cardImg = document.createElement("img")
     cardImg.src = "assets/images/" + deck[randomCard] + ".png"
     cardImg.width = 120
@@ -54,6 +56,7 @@ function dealer() {
    document.getElementById("hand-el").appendChild(cardImg)
    deck.splice(randomCard, 1)
         }
+        startButton.remove()
     }
 }
 

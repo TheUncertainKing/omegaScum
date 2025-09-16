@@ -65,3 +65,13 @@ body {
     position: absolute;
     top: 70%;
 }
+
+.gameButtons {
+  background-color: black;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size:x-large;
+}
