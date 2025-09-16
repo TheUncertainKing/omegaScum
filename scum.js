@@ -30,7 +30,9 @@ function drawCard() {
         //actual card
         let cardImg = document.createElement("img")
    cardImg.src = "assets/images/" + deck[randomCard] + ".png"
-   cardImg.width = 150
+   cardImg.width = 120
+   cardImg.id = randomCard
+   cardImg.onclick = cardClicked
    document.getElementById("hand-el").appendChild(cardImg)
     }
 }
@@ -46,17 +48,18 @@ function dealer() {
     drawTest.textContent += deck[randomCard] + " "
     let cardImg = document.createElement("img")
     cardImg.src = "assets/images/" + deck[randomCard] + ".png"
-    cardImg.width = 150
+    cardImg.width = 120
+    cardImg.id = randomCard
+    cardImg.onclick = cardClicked
    document.getElementById("hand-el").appendChild(cardImg)
    deck.splice(randomCard, 1)
         }
     }
 }
 
-function cardData() {
-    return randomCard
+const cardClicked = function() {
+    drawTest.textContent = this.id
 }
-
 
 
 
