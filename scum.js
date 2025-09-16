@@ -1,10 +1,13 @@
 //variables
 
+const handEl = document.getElementById("hand-el")
+
+   
+
 let player = {
     name: "User",
     isKing: false,
-    isScum: false,
-    hand: [0]
+    isScum: false
 }
 
 let drawTest = document.getElementById("draw-test")
@@ -20,6 +23,11 @@ function drawCard() {
    let randomCard = Math.floor(Math.random() * deck.length)
    drawTest.textContent += deck[randomCard] + " "
    deck.splice(randomCard, 1)
+        //actual card
+        let cardImg = document.createElement("img")
+   cardImg.src = "assets/images/" + randomCard + ".png"
+   cardImg.width = 150
+   document.getElementById("hand-el").appendChild(cardImg)
     }
 }
 
@@ -33,6 +41,10 @@ function dealer() {
     let randomCard = Math.floor(Math.random() * deck.length)
     drawTest.textContent += deck[randomCard] + " "
     deck.splice(randomCard, 1)
+    let cardImg = document.createElement("img")
+    cardImg.src = "assets/images/" + randomCard + ".png"
+    cardImg.width = 150
+   document.getElementById("hand-el").appendChild(cardImg)
         }
     }
 }
