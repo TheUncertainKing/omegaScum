@@ -27,7 +27,7 @@ function drawCard() {
         drawTest.textContent += "Empty"
     } else {
    var randomCard = Math.floor(Math.random() * deck.length)
-   drawTest.textContent += deck[randomCard] + " "
+   drawTest.textContent += " " + deck[randomCard]
    let cardImg = document.createElement("img")
    cardImg.src = "assets/images/" + deck[randomCard] + ".png"
    cardImg.width = 120
@@ -93,9 +93,16 @@ var cardNumber = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "
 
 var cardSuit = ["Skulls", "Moons","Spoons", "Stars", "Spades", "Diamonds", "Hearts", "Clubs" + ""]
 
-var cardName = cardNumber[selectedNumber] + cardSuit[selectedSuit]
+var cardName = cardNumber[selectedNumber] + " of " +  cardSuit[selectedSuit]
 
 
+
+function testButton() { 
+    selectedNumber = 10
+    selectedSuit = 8
+    console.log(cardName)
+    drawTest.textContent = cardName
+}
 
 
 
@@ -111,10 +118,7 @@ let cardClicked = function() {
     playHand = (Number(this.id))
     console.log(Number(this.id))
     if (muppet.includes(playHand)) {
-        selectedNumber = 13
-        selectedSuit = 9
-        console.log(cardName)
-        drawTest.textContent = "Muppet" + cardName
+        drawTest.textContent = "Muppet"
      } else
      drawTest.textContent = this.id
 }
@@ -143,3 +147,6 @@ function playedHand() {
    //remove card from hand
    document.getElementById("hand-el").removeChild(cardPlayed)
 }
+
+
+
