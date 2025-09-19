@@ -6,6 +6,7 @@ body {
     color: white;
     text-align: center;
     font-size: large;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 h1 {
@@ -79,10 +80,10 @@ h1 {
   display: inline-block;
   font-size: 1000%;
   opacity: 1;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .gameButtons {
-  background-color: black;
   color: white;
   padding: 14px 25px;
   text-align: center;
@@ -90,4 +91,13 @@ h1 {
   display: inline-block;
   font-size:x-large;
   visibility: hidden;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+#playCardBtn {
+background-color: green;
+}
+
+#drawBtn {
+background-color: red;
 }

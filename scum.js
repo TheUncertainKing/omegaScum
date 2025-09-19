@@ -104,6 +104,7 @@ const card = {
     lastNumber:0, 
     lastSuit:0,
     value: 0,
+    selectedCards: [],
     get name() {
         return cardNumber[this.selectedNumber] + cardSuit[this.selectedSuit]
     }
@@ -146,65 +147,92 @@ let cardClicked = function() {
         
         card.selectedNumber = 1
         
+        card.selectedCards.push(playHand)
+
      } else if (ace.includes(playHand)) {
         card.value = 12
         
         card.selectedNumber = 0
-              
+
+        card.selectedCards.push(playHand)
+
      } else if (king.includes(playHand)) {
         card.value = 11
 
         card.selectedNumber = 12
+
+        card.selectedCards.push(playHand)
         
      } else if (queen.includes(playHand)) {
         card.value = 10
         
         card.selectedNumber = 11
+
+        card.selectedCards.push(playHand)
         
      } else if (jack.includes(playHand)) {
         card.value = 9
 
         card.selectedNumber = 10
+
+        card.selectedCards.push(playHand)
         
      } else if (ten.includes(playHand)) {
         card.value = 8
 
         card.selectedNumber = 9
+
+        card.selectedCards.push(playHand)
         
      } else if (nine.includes(playHand)) {
         card.value = 7
         
         card.selectedNumber = 8
+
+        card.selectedCards.push(playHand)
         
      } else if (eight.includes(playHand)) {
         card.value = 6
 
         card.selectedNumber = 7
+
+        card.selectedCards.push(playHand)
         
      } else if (seven.includes(playHand)) {
         card.value = 5
 
         card.selectedNumber = 6
+
+        card.selectedCards.push(playHand)
         
      } else if (six.includes(playHand)) {
         card.value = 4
 
         card.selectedNumber = 5
+
+        card.selectedCards.push(playHand)
         
      } else if (five.includes(playHand)) {
         card.value = 3
 
         card.selectedNumber = 4
+
+        card.selectedCards.push(playHand)
         
      } else if (four.includes(playHand)) {
         card.value = 2
 
         card.selectedNumber = 3
+
+        card.selectedCards.push(playHand)
         
      } else if (three.includes(playHand)) {
         card.value = 1
 
-        card.selectedNumber = 2        
+        card.selectedNumber = 2     
+        
+        card.selectedCards.push(playHand)
+
      }
      //Suits
      if (skulls.includes(playHand)){
@@ -225,7 +253,7 @@ let cardClicked = function() {
         card.selectedSuit = 7
      }
      //Display Card
-     drawTest.textContent = card.name
+     drawTest.textContent = card.selectedCards
      if (royalFlush == 4){
         //royal flush code
      }
@@ -256,3 +284,7 @@ let cardClicked = function() {
 
 
 
+if (card.selectedCards.includes(this.id)){
+card.selectedCards.splice
+} else 
+    card.selectedCards
