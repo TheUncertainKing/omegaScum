@@ -3,8 +3,6 @@
 const handEl = document.getElementById("hand-el")
 const discardEl = document.getElementById("discard-el")
 
-   
-
 let player = {
     name: "User",
     isKing: false,
@@ -47,7 +45,7 @@ function dealer() {
     for (let c = 1; c < 14; c++) {
         drawCard()
         }
-        startButton.remove()
+        startButton.remove() 
     }
 
 
@@ -96,6 +94,10 @@ var cardSuit = [" of Skulls", " of Moons"," of Spoons", " of Stars", " of Spades
 const card = {
     selectedNumber: 0,
     selectedSuit: 0,
+    lastValue: 0,
+    lastNumber:0, 
+    lastSuit:0,
+    value: 0,
     get name() {
         return cardNumber[this.selectedNumber] + cardSuit[this.selectedSuit]
     }
@@ -118,40 +120,80 @@ var playHand = 0
 
 //Playing Game
 
+//Play Card
 let cardClicked = function() {
     playHand = (Number(this.id))
     console.log(Number(this.id))
     if (muppet.includes(playHand)) {
         card.selectedNumber = 13
         card.selectedSuit = 8
+        card.value = 14
      } 
      //Numbers
-     else if (king.includes(playHand)) {
-        card.selectedNumber = 12
-     } else if (queen.includes(playHand)) {
-        card.selectedNumber = 11
-     } else if (jack.includes(playHand)) {
-        card.selectedNumber = 10
-     } else if (ten.includes(playHand)) {
-        card.selectedNumber = 9
-     } else if (nine.includes(playHand)) {
-        card.selectedNumber = 8
-     } else if (eight.includes(playHand)) {
-        card.selectedNumber = 7
-     } else if (seven.includes(playHand)) {
-        card.selectedNumber = 6
-     } else if (six.includes(playHand)) {
-        card.selectedNumber = 5
-     } else if (five.includes(playHand)) {
-        card.selectedNumber = 4
-     } else if (four.includes(playHand)) {
-        card.selectedNumber = 3
-     } else if (three.includes(playHand)) {
-        card.selectedNumber = 2
-     } else if (two.includes(playHand)) {
+      else if (two.includes(playHand)) {
+        card.value = 13
+        
         card.selectedNumber = 1
+        
      } else if (ace.includes(playHand)) {
+        card.value = 12
+        
         card.selectedNumber = 0
+              
+     } else if (king.includes(playHand)) {
+        card.value = 11
+
+        card.selectedNumber = 12
+        
+     } else if (queen.includes(playHand)) {
+        card.value = 10
+        
+        card.selectedNumber = 11
+        
+     } else if (jack.includes(playHand)) {
+        card.value = 9
+
+        card.selectedNumber = 10
+        
+     } else if (ten.includes(playHand)) {
+        card.value = 8
+
+        card.selectedNumber = 9
+        
+     } else if (nine.includes(playHand)) {
+        card.value = 7
+        
+        card.selectedNumber = 8
+        
+     } else if (eight.includes(playHand)) {
+        card.value = 6
+
+        card.selectedNumber = 7
+        
+     } else if (seven.includes(playHand)) {
+        card.value = 5
+
+        card.selectedNumber = 6
+        
+     } else if (six.includes(playHand)) {
+        card.value = 4
+
+        card.selectedNumber = 5
+        
+     } else if (five.includes(playHand)) {
+        card.value = 3
+
+        card.selectedNumber = 4
+        
+     } else if (four.includes(playHand)) {
+        card.value = 2
+
+        card.selectedNumber = 3
+        
+     } else if (three.includes(playHand)) {
+        card.value = 1
+
+        card.selectedNumber = 2        
      }
      //Suits
      if (skulls.includes(playHand)){
@@ -174,28 +216,28 @@ let cardClicked = function() {
      //Display Card
      drawTest.textContent = card.name
 }
-
-
-
-
-   
-
+  
 
      //Play Card
      playedCards = ["Played Cards: "]
 
 
     function playedHand() {
-    playedCards.push(" " +card.name)
-
-    drawTest.textContent = playedCards
-    let cardPlayed = document.createElement("img")
-   cardPlayed.src = "assets/images/" + playHand + ".png"
-   cardPlayed.width = 120
-   cardPlayed.id = playHand
-   document.getElementById("discard-el").appendChild(cardPlayed)
-   //remove card from hand
-   document.getElementById("hand-el").removeChild(cardPlayed)
+    
+    //Is Card better
+    if (card.value > card.lastValue) {
+        card.lastValue = card.value
+        playedCards.push(" " +card.name)
+        drawTest.textContent = playedCards
+        let cardPlayed = document.createElement("img")
+        cardPlayed.src = "assets/images/" + playHand + ".png"
+        cardPlayed.width = 120
+        cardPlayed.id = playHand
+        //Moves Card to Discard
+        let removeCard = document.getElementById(playHand)
+        removeCard.remove()
+        document.getElementById("discard-el").appendChild(cardPlayed)
+    }
 }
 
 
