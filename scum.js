@@ -25,7 +25,7 @@ function drawCard() {
         drawTest.textContent += "Empty"
     } else {
    var randomCard = Math.floor(Math.random() * deck.length)
-   drawTest.textContent += " " + deck[randomCard]
+   //drawTest.textContent += " " + deck[randomCard]
    let cardImg = document.createElement("img")
    cardImg.src = "assets/images/" + deck[randomCard] + ".png"
    cardImg.width = 120
@@ -40,12 +40,16 @@ function drawCard() {
 const startButton = document.getElementById("strtbtn")
 
 
-//initial deal [working]
+//Start Game
 function dealer() {
     for (let c = 1; c < 14; c++) {
         drawCard()
         }
         startButton.remove() 
+        let drawBtn = document.getElementById("drawBtn")
+        let playCardBtn = document.getElementById("playCardBtn")
+        drawBtn.style.visibility = 'visible'
+        playCardBtn.style.visibility = 'visible'
     }
 
 
@@ -103,6 +107,9 @@ const card = {
     }
 }
 
+
+
+
 function testButton() { 
     selectedNumber = 10
     selectedSuit = 8
@@ -115,7 +122,9 @@ function testButton() {
 var playHand = 0
 
 
+//Flush Check
 
+royalFlush = 0
 
 
 //Playing Game
@@ -215,6 +224,9 @@ let cardClicked = function() {
      }
      //Display Card
      drawTest.textContent = card.name
+     if (royalFlush == 4){
+        //royal flush code
+     }
 }
   
 
@@ -223,12 +235,12 @@ let cardClicked = function() {
 
 
     function playedHand() {
-    
+    royalFlush = 0
     //Is Card better
     if (card.value > card.lastValue) {
         card.lastValue = card.value
         playedCards.push(" " +card.name)
-        drawTest.textContent = playedCards
+        //drawTest.textContent = playedCards
         let cardPlayed = document.createElement("img")
         cardPlayed.src = "assets/images/" + playHand + ".png"
         cardPlayed.width = 120

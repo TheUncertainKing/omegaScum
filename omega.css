@@ -8,6 +8,10 @@ body {
     font-size: large;
 }
 
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 300%;
+}
 
 .scum-button {
   background-color: red;
@@ -66,6 +70,17 @@ body {
     top: 70%;
 }
 
+.startButton {
+  background-color: black;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size:x-large;
+  opacity: 1;
+}
+
 .gameButtons {
   background-color: black;
   color: white;
@@ -74,4 +89,5 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size:x-large;
+  visibility: hidden;
 }
