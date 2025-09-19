@@ -48,6 +48,8 @@ function dealer() {
         startButton.remove() 
         let drawBtn = document.getElementById("drawBtn")
         let playCardBtn = document.getElementById("playCardBtn")
+        let scumTitle = document.getElementById("scumTitle-el")
+        scumTitle.style.fontSize= "300%"
         drawBtn.style.visibility = 'visible'
         playCardBtn.style.visibility = 'visible'
     }
