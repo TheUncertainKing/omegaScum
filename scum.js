@@ -253,7 +253,7 @@ let cardClicked = function() {
         card.selectedSuit = 7
      }
      //Display Card
-     drawTest.textContent = card.selectedCards
+     drawTest.textContent = card.name
      if (royalFlush == 4){
         //royal flush code
      }
