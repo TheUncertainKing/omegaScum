@@ -325,7 +325,8 @@ let cardClicked = function() {
 
 //Display Card
 function displayCard() {
-     drawTest.textContent = card.value
+    valueCheck()
+     drawTest.textContent = ""
 }
 
 
@@ -336,13 +337,14 @@ function displayCard() {
 
     function playedHand() {
     royalFlush = 0
-     for (let i = 0; i < selectedCards.length; i ++) {
+
+    
+     for (let i = 0; i < 10; i += 1) {
     //Is Card better
         if (card.value[0] > card.lastValue) {
         playedCards.push(" " +card.name)
             card.lastValue = card.value[0]
             card.value.shift()
-
             //Grabs Card Info
             let movingCard = selectedCards[0]
             selectedCards.shift()
