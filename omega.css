@@ -49,9 +49,10 @@ h1 {
     color: whitesmoke;
 }
 
-.card {
-    width: 250;
-    height: auto;
+
+#card {
+    margin-bottom: 10;
+    width: 20px;
 }
 
 .rules {
@@ -69,6 +70,9 @@ h1 {
     text-align: center;
     position: absolute;
     top: 70%;
+    bottom: 10%;
+    transition: all 1s ease-in-out;
+    margin: 10px;
 }
 
 .startButton {
@@ -81,6 +85,11 @@ h1 {
   font-size: 1000%;
   opacity: 1;
   font-family: 'Times New Roman', Times, serif;
+  box-shadow: 8px 8px 3px rgba(2, 48, 19, 1);;
+}
+
+#testBtn {
+    visibility: visible;
 }
 
 .gameButtons {
@@ -92,6 +101,8 @@ h1 {
   font-size:x-large;
   visibility: hidden;
   font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  box-shadow: 2px 2px 3px black;
 }
 
 #playCardBtn {
