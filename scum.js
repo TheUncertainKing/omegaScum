@@ -170,7 +170,8 @@ function dealer() {
 
 const royalFlush = {
     ammount: 0,
-    countains: [64,65,66,67,56, 57, 58, 59, 60, 61, 62, 63, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 0, 1, 2, 3, 104, 105, 106, 107],
+    countains: [64 ,65 ,66 ,67 ,56, 57, 58, 59, 60, 61, 62, 63, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 0, 1, 2, 3, 104, 105, 106, 107],
+    notContain: [4, 5, 6, 7, 100, 101, 102, 103, 8, 9, 10, 11, 96, 97, 98, 99, 12, 13, 14, 15, 92, 93, 94, 95, 16, 17, 18, 19, 88, 89, 90, 91, 20, 21, 22, 23, 84, 85, 86, 87, 4, 25, 26, 27, 80, 81, 82, 83, 28, 29, 30, 31, 76, 77, 78, 79, 32, 33, 34, 35, 71, 72, 73, 74, 75, 36, 37, 38, 39, 68, 69, 70, 71],
     containsValue: [14, 12, 11, 10, 9],
     hand: [],
     unflush: -1
@@ -193,7 +194,6 @@ function select() {
     if (royalFlush.countains.includes(selectedCards[0])) {
         card.isFlush = true
     } else {card.isFlush = false}
-    
 }
 
 function deselect() {
@@ -234,9 +234,6 @@ let cardClicked = function() {
 
     //Check if Flushable
     
-    
-    
-
     //card.devalue = card.value.indexOf(playValue)
 
     if (selectedCards.includes(playHand)) {
@@ -244,8 +241,6 @@ let cardClicked = function() {
     displayCard()
     } else if (card.ammount <= 0 || card.value[0] === playValue || playValue === 14) {
     select()
-   
-    
     if (muppet.includes(playHand)) {
         card.selectedNumber = 13
         card.selectedSuit = 8
