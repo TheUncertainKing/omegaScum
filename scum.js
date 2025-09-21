@@ -156,17 +156,21 @@ function dealer() {
         startButton.remove() 
         let drawBtn = document.getElementById("drawBtn")
         let playCardBtn = document.getElementById("playCardBtn")
+        let passBtn = document.getElementById("passBtn")
         let scumTitle = document.getElementById("scumTitle-el")
         scumTitle.style.fontSize= "300%"
         drawBtn.style.visibility = 'visible'
         playCardBtn.style.visibility = 'visible'
+        passBtn.style.visibility = 'visible'
     }
 
 
 
 const royalFlush = {
     ammount: 0,
-    countains: []
+    countains: [muppet, ace, king, queen, jack],
+    containsValue: [14, 12, 11, 10, 9],
+    hand: []
 }
 
  
@@ -194,8 +198,12 @@ function deselect() {
     card.value.splice(card.devalue, 1)
     card.ammount -= 1
     //RF
-    if (muppet.includes(playHand) || ace.includes(playHand) || king.includes(playHand) || queen.includes(playHand || jack.includes(playHand))) {
+    if (ace.includes(playHand) || king.includes(playHand) || queen.includes(playHand) || jack.includes(playHand)) {
         royalFlush.ammount --
+    }
+    if (muppet.includes(playHand)) {
+        royalFlush.ammount --
+        card.hasMuppet = false
     }
     
 }
@@ -257,8 +265,7 @@ let cardClicked = function() {
         royalFlush.ammount ++
         card.selectedNumber = 10
 
-        
-        
+
      } else if (ten.includes(playHand)) {
         card.value.push(8)
 
@@ -334,19 +341,29 @@ let cardClicked = function() {
     
      displayCard()
      if (royalFlush.ammount == 4){
+        if (card.hasMuppet = true) {
         card.value.push(15)
         royalFlush.ammount = 0
+        card.hasMuppet = false
         for (let i = 0; i < 5; i ++) {
+        royalFlush.countains.pop()
+        } 
+        } else 
+            card.value.push(16) 
+            royalFlush.ammount = 0
+            for (let i = 0; i < 5; i ++) {
             royalFlush.countains.pop()
-        }
      }
+    }
 }
+
 }
+
 
 //Display Card
 function displayCard() {
     valueCheck()
-     drawTest.textContent = "Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value + " Flush: " + royalFlush.ammount
+     drawTest.textContent = "Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value + " Flush: " + royalFlush.ammount + " Muppet: " + card.hasMuppet
 }
 
 
@@ -366,6 +383,7 @@ function displayCard() {
         card.lastValue = card.value[0]
         card.multiple = card.ammount
         card.ammount = 0
+        card.hasMuppet = false
         for (let i = 0; i < 10; i += 1) {
             playedCards.push(" " +card.name)     
             card.value.shift()
@@ -401,6 +419,7 @@ function displayCard() {
         removeCard.remove()
         document.getElementById("discard-el").appendChild(cardPlayed)
         drawTest.textContent = playHand
+        card.hasMuppet = false
         } 
 }
     
