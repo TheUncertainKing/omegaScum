@@ -1,5 +1,8 @@
 //variables
 
+
+const trump = ["skulls","moons","spoons","stars","spades","hearts","clubs"]
+
 //Groups
 
 //Face Cards
@@ -332,6 +335,10 @@ let cardClicked = function() {
      displayCard()
      if (royalFlush.ammount == 4){
         card.value.push(15)
+        royalFlush.ammount = 0
+        for (let i = 0; i < 5; i ++) {
+            royalFlush.countains.pop()
+        }
      }
 }
 }
