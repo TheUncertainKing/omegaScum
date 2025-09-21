@@ -8,7 +8,7 @@ const trump = ["skulls","moons","spoons","stars","spades","hearts","clubs"]
 //Face Cards
 const muppet = [64,65,66,67]
 const jack = [56, 57, 58, 59, 60, 61, 62, 63]
-const queen = [40, 41, 42, 43, 44, 45, 46,]
+const queen = [40, 41, 42, 43, 44, 45, 46, 47]
 const king = [48, 49, 50, 51, 52, 53, 54, 55]
 const ace = [0, 1, 2, 3, 104, 105, 106, 107]
 
@@ -20,7 +20,7 @@ const five = [16, 17, 18, 19, 88, 89, 90, 91]
 const six = [20, 21, 22, 23, 84, 85, 86, 87]
 const seven = [24, 25, 26, 27, 80, 81, 82, 83]
 const eight = [28, 29, 30, 31, 76, 77, 78, 79]
-const nine = [32, 33, 34, 35, 71, 72, 73, 75]
+const nine = [32, 33, 34, 35, 71, 72, 73, 74, 75]
 const ten = [36, 37, 38, 39, 68, 69, 70, 71]
 
 //Suits
@@ -54,6 +54,7 @@ const card = {
     ammount: 0,
     multiple: 0,
     hasMuppet: false,
+    isFlush: false,
     get name() {
         return cardNumber[this.selectedNumber] + cardSuit[this.selectedSuit]
     }
@@ -83,6 +84,7 @@ function drawCard() {
    let cardImg = document.createElement("img")
    cardImg.src = "assets/images/" + deck[randomCard] + ".png"
    cardImg.width = 120
+   cardImg.classList.add("card")
    cardImg.id = deck[randomCard]
    let drawnCardID = deck[randomCard]
    cardImg.onclick = cardClicked
@@ -168,9 +170,10 @@ function dealer() {
 
 const royalFlush = {
     ammount: 0,
-    countains: [muppet, ace, king, queen, jack],
+    countains: [64,65,66,67,56, 57, 58, 59, 60, 61, 62, 63, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 0, 1, 2, 3, 104, 105, 106, 107],
     containsValue: [14, 12, 11, 10, 9],
-    hand: []
+    hand: [],
+    unflush: -1
 }
 
  
@@ -180,7 +183,6 @@ let playHand = 0
 //Flush Check
 
 
-
 //Playing Game
 
 
@@ -188,6 +190,9 @@ function select() {
     document.getElementById(playHand).style.marginBottom = 20
     selectedCards.push(playHand)
     card.ammount ++
+    if (royalFlush.countains.includes(selectedCards[0])) {
+        card.isFlush = true
+    } else {card.isFlush = false}
     
 }
 
@@ -198,13 +203,19 @@ function deselect() {
     card.value.splice(card.devalue, 1)
     card.ammount -= 1
     //RF
+    royalFlush.deflush = royalFlush.hand.indexOf(playValue)
     if (ace.includes(playHand) || king.includes(playHand) || queen.includes(playHand) || jack.includes(playHand)) {
         royalFlush.ammount --
+        royalFlush.hand.splice(royalFlush.deflush, 1)
     }
     if (muppet.includes(playHand)) {
         royalFlush.ammount --
         card.hasMuppet = false
+        royalFlush.hand.splice(royalFlush.deflush, 1)
     }
+    if (royalFlush.countains.includes(selectedCards[0])) {
+        card.isFlush = true
+    } else {card.isFlush = false}
     
 }
 
@@ -220,6 +231,12 @@ let cardClicked = function() {
     console.log(Number(this.id))
     playValue = valueCheck()
     card.deselect = selectedCards.indexOf(playHand)
+
+    //Check if Flushable
+    
+    
+    
+
     //card.devalue = card.value.indexOf(playValue)
 
     if (selectedCards.includes(playHand)) {
@@ -227,6 +244,7 @@ let cardClicked = function() {
     displayCard()
     } else if (card.ammount <= 0 || card.value[0] === playValue || playValue === 14) {
     select()
+   
     
     if (muppet.includes(playHand)) {
         card.selectedNumber = 13
@@ -234,7 +252,7 @@ let cardClicked = function() {
         card.hasMuppet = true
         card.value.push(14)
         royalFlush.ammount ++
-        
+
         
      } 
      //Numbers
@@ -245,25 +263,34 @@ let cardClicked = function() {
         
      } else if (ace.includes(playHand)) {
         card.value.push(12)
-        royalFlush.ammount ++
         card.selectedNumber = 0
+
+        royalFlush.ammount ++
+        royalFlush.hand.push(12)
 
      } else if (king.includes(playHand)) {
         card.value.push(11)
-        royalFlush.ammount ++
         card.selectedNumber = 12
+
+        royalFlush.ammount ++
+        royalFlush.hand.push(11)
+
 
      } else if (queen.includes(playHand)) {
         card.value.push(10)
-        royalFlush.ammount ++
         card.selectedNumber = 11
 
-        
+        royalFlush.ammount ++
+        royalFlush.hand.push(10)
+
         
      } else if (jack.includes(playHand)) {
         card.value.push(9)
-        royalFlush.ammount ++
         card.selectedNumber = 10
+
+        royalFlush.ammount ++
+        royalFlush.hand.push(9)
+
 
 
      } else if (ten.includes(playHand)) {
@@ -363,7 +390,7 @@ let cardClicked = function() {
 //Display Card
 function displayCard() {
     valueCheck()
-     drawTest.textContent = "Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value + " Flush: " + royalFlush.ammount + " Muppet: " + card.hasMuppet
+     drawTest.textContent = "Selected: " + selectedCards + " Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value + " Flush: " + card.isFlush + " " + royalFlush.hand + " Muppet: " + card.hasMuppet
 }
 
 

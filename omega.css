@@ -1,3 +1,6 @@
+html {
+  overflow-y: scroll;
+}
 body {
     background-image: url("table-top.jpg");
     background-size: cover;
@@ -67,12 +70,11 @@ h1 {
 
 #hand-el {
     width: 100%;
+    height: auto;
     text-align: center;
     position: absolute;
     top: 70%;
-    bottom: 10%;
     transition: all 1s ease-in-out;
-    margin: 10px;
 }
 
 .startButton {
@@ -115,4 +117,8 @@ background-color: red;
 
 #passBtn {
     background-color: black
+}
+
+.card:hover {
+    width: 8%;
 }
