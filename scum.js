@@ -50,6 +50,7 @@ const card = {
     devalue: -1,
     ammount: 0,
     multiple: 0,
+    hasMuppet: false,
     get name() {
         return cardNumber[this.selectedNumber] + cardSuit[this.selectedSuit]
     }
@@ -176,6 +177,7 @@ royalFlush = 0
 function select() {
     document.getElementById(playHand).style.marginBottom = 20
     selectedCards.push(playHand)
+    card.ammount ++
 }
 
 function deselect() {
@@ -183,6 +185,7 @@ function deselect() {
     document.getElementById(playHand).style.marginBottom = 0
     selectedCards.splice(card.deselect, 1)
     card.value.splice(card.devalue, 1)
+    card.ammount -= 1
     //card.value.splice(card.devalue)
     
 }
@@ -204,13 +207,14 @@ let cardClicked = function() {
     if (selectedCards.includes(playHand)) {
     deselect()
     displayCard()
-    } else {
+    } else if (card.ammount <= 0 || card.value[0] === playValue) {
     select()
     
     if (muppet.includes(playHand)) {
         card.selectedNumber = 13
         card.selectedSuit = 8
         card.value.push(14)
+        card.hasMuppet = true
         
      } 
      //Numbers
@@ -326,7 +330,7 @@ let cardClicked = function() {
 //Display Card
 function displayCard() {
     valueCheck()
-     drawTest.textContent = ""
+     drawTest.textContent = "Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value
 }
 
 
@@ -339,13 +343,20 @@ function displayCard() {
     royalFlush = 0
 
     
-     for (let i = 0; i < 10; i += 1) {
+     
     //Is Card better
-        if (card.value[0] > card.lastValue) {
-        playedCards.push(" " +card.name)
-            card.lastValue = card.value[0]
+
+    //Multiples
+    if (card.ammount >= 2 && card.value[0] > card.lastValue) {
+        //checks what multiple it is
+        if (card.multiple === 0 || card.multiple === card.ammount) {
+        card.lastValue = card.value[0]
+        card.multiple = card.ammount
+        card.ammount = 0
+        for (let i = 0; i < 10; i += 1) {
+            playedCards.push(" " +card.name)     
             card.value.shift()
-            //Grabs Card Info
+            //Moves Card
             let movingCard = selectedCards[0]
             selectedCards.shift()
             let cardPlayed = document.createElement("img")
@@ -355,12 +366,32 @@ function displayCard() {
             cardPlayed.id = movingCard
             removeCard.remove()
             document.getElementById("discard-el").appendChild(cardPlayed)
-            drawTest.textContent = movingCard
+            card.ammount = 0
+            drawTest.textContent = playHand
+            displayCard()
         }
-    }
+        } //Singles
+    } else if (card.value[0] > card.lastValue && card.multiple <= 1) {
+        card.lastValue = card.value[0]
+        card.multiple = card.ammount
+        card.ammount = 0
+        playedCards.push(" " +card.name)
+        card.value.shift()
+        //Grabs Card Info
+        let movingCard = selectedCards[0]
+        selectedCards.shift()
+        let cardPlayed = document.createElement("img")
+        cardPlayed.src = "assets/images/" + movingCard + ".png"
+        cardPlayed.width = 120
+        let removeCard = document.getElementById(movingCard)
+        cardPlayed.id = movingCard
+        removeCard.remove()
+        document.getElementById("discard-el").appendChild(cardPlayed)
+        drawTest.textContent = playHand
+        } 
 }
-
-
+    
+//Value Check
 function valueCheck() {
     if (muppet.includes(playHand)) {
         card.selectedValue = 14
