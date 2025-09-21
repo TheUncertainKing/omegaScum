@@ -161,7 +161,10 @@ function dealer() {
 
 
 
-
+const royalFlush = {
+    ammount: 0,
+    countains: []
+}
 
  
 let playHand = 0
@@ -169,7 +172,7 @@ let playHand = 0
 
 //Flush Check
 
-royalFlush = 0
+
 
 //Playing Game
 
@@ -178,6 +181,7 @@ function select() {
     document.getElementById(playHand).style.marginBottom = 20
     selectedCards.push(playHand)
     card.ammount ++
+    
 }
 
 function deselect() {
@@ -186,7 +190,10 @@ function deselect() {
     selectedCards.splice(card.deselect, 1)
     card.value.splice(card.devalue, 1)
     card.ammount -= 1
-    //card.value.splice(card.devalue)
+    //RF
+    if (muppet.includes(playHand) || ace.includes(playHand) || king.includes(playHand) || queen.includes(playHand || jack.includes(playHand))) {
+        royalFlush.ammount --
+    }
     
 }
 
@@ -207,14 +214,16 @@ let cardClicked = function() {
     if (selectedCards.includes(playHand)) {
     deselect()
     displayCard()
-    } else if (card.ammount <= 0 || card.value[0] === playValue) {
+    } else if (card.ammount <= 0 || card.value[0] === playValue || playValue === 14) {
     select()
     
     if (muppet.includes(playHand)) {
         card.selectedNumber = 13
         card.selectedSuit = 8
-        card.value.push(14)
         card.hasMuppet = true
+        card.value.push(14)
+        royalFlush.ammount ++
+        
         
      } 
      //Numbers
@@ -225,24 +234,24 @@ let cardClicked = function() {
         
      } else if (ace.includes(playHand)) {
         card.value.push(12)
-        
+        royalFlush.ammount ++
         card.selectedNumber = 0
 
      } else if (king.includes(playHand)) {
         card.value.push(11)
-
+        royalFlush.ammount ++
         card.selectedNumber = 12
 
      } else if (queen.includes(playHand)) {
         card.value.push(10)
-        
+        royalFlush.ammount ++
         card.selectedNumber = 11
 
         
         
      } else if (jack.includes(playHand)) {
         card.value.push(9)
-
+        royalFlush.ammount ++
         card.selectedNumber = 10
 
         
@@ -321,8 +330,8 @@ let cardClicked = function() {
      }
     
      displayCard()
-     if (royalFlush == 4){
-        //royal flush code
+     if (royalFlush.ammount == 4){
+        card.value.push(15)
      }
 }
 }
@@ -330,7 +339,7 @@ let cardClicked = function() {
 //Display Card
 function displayCard() {
     valueCheck()
-     drawTest.textContent = "Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value
+     drawTest.textContent = "Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value + " Flush: " + royalFlush.ammount
 }
 
 
@@ -340,10 +349,7 @@ function displayCard() {
 
 
     function playedHand() {
-    royalFlush = 0
 
-    
-     
     //Is Card better
 
     //Multiples
