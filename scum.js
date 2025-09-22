@@ -225,6 +225,9 @@ function deselect() {
       card.isFlush = false
       card.ammount = 0
    }
+   if (card.ammount === 0) {
+      royalFlush.ammount = 0
+   }
     
 }
 
