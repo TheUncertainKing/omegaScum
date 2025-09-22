@@ -196,8 +196,12 @@ function select() {
       if (card.ammount < 1){
       card.isFlush = true
       }
+      if (royalFlush.countains.includes(selectedCards[1])) {
+         card.isFlushing = true
+      }
     } else {
       card.isFlush = false
+      card.isFlushing = false
       card.ammount ++
       }
 }
@@ -221,9 +225,13 @@ function deselect() {
     }
     if (royalFlush.countains.includes(selectedCards[0])) {
         card.isFlush = true
+        if (royalFlush.countains.includes(selectedCards[1])) {
+         card.isFlushing = true
+      }
     } else {
       card.isFlush = false
       card.ammount = 0
+      card.isFlushing = false
    }
    if (card.ammount === 0) {
       royalFlush.ammount = 0
@@ -251,7 +259,8 @@ let cardClicked = function() {
     if (selectedCards.includes(playHand)) {
     deselect()
     displayCard()
-    } else {if (card.isFlush && card.ammount<= 1 ) {
+    } else {
+      if (card.isFlush && card.ammount <= 1 ) {
     
       if (ace.includes(playHand) && !royalFlush.hand.includes(playValue)) {
        select()
@@ -292,21 +301,21 @@ let cardClicked = function() {
 }  //end of flush 
       
       
-      if (royalFlush.ammount < 2 || card.isFlush === false) {
+      if (royalFlush.ammount < 2 || card.isFlush === false || card.ammount === 1) {
         if (card.ammount <= 0 || card.value[0] === playValue || playValue === 14 ) {
     select()
     if (muppet.includes(playHand)) {
         card.selectedNumber = 13
         card.selectedSuit = 8
         card.hasMuppet = true
-        card.value.push(14)
+        card.value.push(13)
         if (card.ammount === 0) {
         royalFlush.ammount ++
         }
      } else 
      //Numbers
       if (two.includes(playHand)) {
-        card.value.push(13)
+        card.value.push(14)
         
         card.selectedNumber = 1
         
@@ -511,7 +520,8 @@ function displayCard() {
             displayCard()
         }
         } //Singles
-    } else if (card.value[0] > card.lastValue && card.multiple <= 1 && card.isFlush === false) {
+    } else if (card.value[0] > card.lastValue && card.isFlush === false || card.hasMuppet === true || card.ammount === 1) {
+         if (card.lastValue < 14 && card.multiple <= 1) {
         card.lastValue = card.value[0]
         card.multiple = card.ammount
         card.ammount = 0
@@ -530,17 +540,18 @@ function displayCard() {
         drawTest.textContent = playHand
         card.hasMuppet = false
         }
+      }
 }
 
     
 //Value Check
 function valueCheck() {
     if (muppet.includes(playHand)) {
-        card.selectedValue = 14
-        return 14
-     } else if (two.includes(playHand)) {
         card.selectedValue = 13
         return 13
+     } else if (two.includes(playHand)) {
+        card.selectedValue = 14
+        return 14
      } else if (ace.includes(playHand)) {
         card.selectedValue = 12
         return 12
