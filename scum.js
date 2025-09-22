@@ -248,7 +248,6 @@ let cardClicked = function() {
         card.value.push(14)
         royalFlush.ammount ++
 
-        
      } 
      //Numbers
       else if (two.includes(playHand)) {
@@ -360,32 +359,60 @@ let cardClicked = function() {
      } else if (clubs.includes(playHand)){
         card.selectedSuit = 7
      }
-    
+
+
+
+
      displayCard()
-     if (royalFlush.ammount == 4){
-        if (card.hasMuppet = true) {
-        card.value.push(15)
-        royalFlush.ammount = 0
-        card.hasMuppet = false
-        for (let i = 0; i < 5; i ++) {
-        royalFlush.countains.pop()
-        } 
-        } else 
-            card.value.push(16) 
-            royalFlush.ammount = 0
-            for (let i = 0; i < 5; i ++) {
-            royalFlush.countains.pop()
+     
+} else if (card.isFlush && !royalFlush.hand.includes(playValue)) {
+    
+if (ace.includes(playHand) && !royalFlush.hand.includes(playValue)) {
+    select()
+        card.value.push(12)
+        card.selectedNumber = 0
+        royalFlush.ammount ++
+        royalFlush.hand.push(12)
+        
+
+     } else if (king.includes(playHand) && !royalFlush.hand.includes(playValue)) {
+        select()
+        card.value.push(11)
+        card.selectedNumber = 12
+
+        royalFlush.ammount ++
+        royalFlush.hand.push(11)
+
+
+     } else if (queen.includes(playHand) && !royalFlush.hand.includes(playValue)) {
+        select()
+        card.value.push(10)
+        card.selectedNumber = 11
+
+        royalFlush.ammount ++
+        royalFlush.hand.push(10)
+
+        
+     } else if (jack.includes(playHand) && !royalFlush.hand.includes(playValue)) {
+        select()
+        card.value.push(9)
+        card.selectedNumber = 10
+
+        royalFlush.ammount ++
+        royalFlush.hand.push(9)
+
      }
-    }
-}
+} //end of flush
 
 }
+
+
 
 
 //Display Card
 function displayCard() {
     valueCheck()
-     drawTest.textContent = "Selected: " + selectedCards + " Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value + " Flush: " + card.isFlush + " " + royalFlush.hand + " Muppet: " + card.hasMuppet
+     drawTest.textContent = "Selected: " + selectedCards + " Ammount: " + card.ammount + " " + "Multiple: " + card.multiple + " Value: " + card.value + " Flush: " + card.isFlush + " Muppet: " + card.hasMuppet + " Discard Value: " + card.lastValue
 }
 
 
@@ -399,7 +426,7 @@ function displayCard() {
     //Is Card better
 
     //Multiples
-    if (card.ammount >= 2 && card.value[0] > card.lastValue) {
+    if (card.ammount >= 2 && card.value[0] > card.lastValue && card.isFlush === false) {
         //checks what multiple it is
         if (card.multiple === 0 || card.multiple === card.ammount) {
         card.lastValue = card.value[0]
@@ -424,7 +451,7 @@ function displayCard() {
             displayCard()
         }
         } //Singles
-    } else if (card.value[0] > card.lastValue && card.multiple <= 1) {
+    } else if (card.value[0] > card.lastValue && card.multiple <= 1 && card.isFlush === false) {
         card.lastValue = card.value[0]
         card.multiple = card.ammount
         card.ammount = 0
@@ -442,8 +469,45 @@ function displayCard() {
         document.getElementById("discard-el").appendChild(cardPlayed)
         drawTest.textContent = playHand
         card.hasMuppet = false
-        } 
+        } else if (card.isFlush === true && royalFlush.ammount === 4) {
+            //Royal Flush
+
+
+        if (card.hasMuppet = true) {
+            card.lastValue = 15
+            royalFlush.ammount = 0
+            card.isFlush = false
+            card.hasMuppet = false
+        } else {
+            card.lastValue = 16
+            royalFlush.ammount = 0
+            card.hasMuppet = false
+            card.isFlush = false
+            royalFlush.ammount = 0
+        }
+
+
+        for (let i = 0; i < 10; i += 1) {
+            playedCards.push(" " +card.name)     
+            card.value.shift()
+            //Moves Card
+            let movingCard = selectedCards[0]
+            selectedCards.shift()
+            let cardPlayed = document.createElement("img")
+            cardPlayed.src = "assets/images/" + movingCard + ".png"
+            cardPlayed.width = 120
+            let removeCard = document.getElementById(movingCard)
+            cardPlayed.id = movingCard
+            removeCard.remove()
+            document.getElementById("discard-el").appendChild(cardPlayed)
+            card.ammount = 0
+            drawTest.textContent = playHand
+            displayCard()
+            royalFlush.hand.pop()
+        }
+    }
 }
+
     
 //Value Check
 function valueCheck() {
