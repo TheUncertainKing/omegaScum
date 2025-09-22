@@ -193,7 +193,9 @@ function select() {
     selectedCards.push(playHand)
     
     if (royalFlush.countains.includes(selectedCards[0])) {
-        card.isFlush = true
+      if (card.ammount < 1){
+      card.isFlush = true
+      }
     } else {
       card.isFlush = false
       card.ammount ++
@@ -276,7 +278,7 @@ let cardClicked = function() {
         
 
         
-     } else if (jack.includes(playHand) && !royalFlush.hand.includes(playValue) && royalFlush.ammount < 2) {
+     } else if (jack.includes(playHand) && !royalFlush.hand.includes(playValue)) {
         select()
         card.value.push(9)
         card.selectedNumber = 10
@@ -287,14 +289,17 @@ let cardClicked = function() {
 }  //end of flush 
       
       
-      if (card.ammount <= 0 || card.value[0] === playValue || playValue === 14) {
+      if (royalFlush.ammount < 2 || card.isFlush === false) {
+        if (card.ammount <= 0 || card.value[0] === playValue || playValue === 14 ) {
     select()
     if (muppet.includes(playHand)) {
         card.selectedNumber = 13
         card.selectedSuit = 8
         card.hasMuppet = true
         card.value.push(14)
+        if (card.ammount === 0) {
         royalFlush.ammount ++
+        }
      } else 
      //Numbers
       if (two.includes(playHand)) {
@@ -305,34 +310,39 @@ let cardClicked = function() {
      } else if (ace.includes(playHand)) {
         card.value.push(12)
         card.selectedNumber = 0
+        if (card.ammount === 0) {
         royalFlush.ammount ++
         royalFlush.hand.push(12)
+        }
         card.ammount ++
 
      } else if (king.includes(playHand)) {
         card.value.push(11)
         card.selectedNumber = 12
-
+        if (card.ammount === 0) {
         royalFlush.ammount ++
         royalFlush.hand.push(11)
+        }
         card.ammount ++
 
 
      } else if (queen.includes(playHand)) {
         card.value.push(10)
         card.selectedNumber = 11
-
+        if (card.ammount === 0) {
         royalFlush.ammount ++
         royalFlush.hand.push(10)
+        }
         card.ammount ++
 
         
      } else if (jack.includes(playHand)) {
         card.value.push(9)
         card.selectedNumber = 10
-
+        if (card.ammount === 0) {
         royalFlush.ammount ++
         royalFlush.hand.push(9)
+        }
         card.ammount ++
 
 
@@ -411,7 +421,7 @@ let cardClicked = function() {
      }
    }
 
-
+      }
 
      displayCard()
      
